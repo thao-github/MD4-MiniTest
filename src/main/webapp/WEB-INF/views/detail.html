@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Detail</title>
+</head>
+<body>
+<fieldset>
+    <form action="" th:object="${employee}">
+        <h3>Employee Detail</h3>
+        <label style="font-weight: bold "> Employee Code: </label>
+        <label th:text="*{employeeCode}"></label><br>
+        <label style="font-weight: bold "> Name: </label>
+        <label th:text="*{name}"></label><br>
+        <label style="font-weight: bold "> Salary: </label>
+        <label th:text="*{salary}"></label><br>
+        <label style="font-weight: bold "> Age: </label>
+        <label th:text="*{age}"></label><br>
+        <label style="font-weight: bold "> Branch: </label>
+        <label th:text="*{branch.name}"></label><br>
+        <a th:href="@{/employees}"> Back to List</a>
+    </form>
+</fieldset>
+
+</body>
+</html>

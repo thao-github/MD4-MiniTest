@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Detail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<fieldset>
+    <form th:action="@{/delete}" th:object="${employee}" method="post">
+        <h2>Confirm Delete</h2>
+        <p>Are you sure to delete this employee?</p>
+        <div hidden>
+            <input type="text" class="form-control" id="id" th:field="*{id}">
+        </div>
+        <label style="font-weight: bold "> Employee Code: </label>
+        <label th:text="*{employeeCode}"></label><br>
+        <label style="font-weight: bold "> Name: </label>
+        <label th:text="*{name}"></label><br>
+        <label style="font-weight: bold "> Salary: </label>
+        <label th:text="*{salary}"></label><br>
+        <label style="font-weight: bold "> Age: </label>
+        <label th:text="*{age}"></label><br>
+        <label style="font-weight: bold "> Branch: </label>
+        <label th:text="*{branch.name}"></label><br>
+
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a th:href="@{/employees}" type="button" class="btn btn-default">Back</a>
+    </form>
+</fieldset>
+
+</body>
+</html>
