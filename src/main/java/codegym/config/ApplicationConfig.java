@@ -3,10 +3,13 @@ package codegym.config;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -33,6 +36,7 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @ComponentScan("codegym")
+@EnableSpringDataWebSupport
 @EnableJpaRepositories("codegym.repository")
 @EnableTransactionManagement
 public class ApplicationConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
@@ -69,20 +73,20 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         return viewResolver;
     }
 
-//    @Override
-//    // chỉ cho Spring biết chỗ lấy tài liệu tĩnh.(js,css,img)
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/img/**")
-//                .addResourceLocations("file:/Users/thaojuice/IdeaProjects/MD4-Repository-Student-Management/src/main/webapp/WEB-INF/img/");
-//    }
-//
-//    // Thay đổi kích thước file upload
-//    @Bean
-//    public CommonsMultipartResolver multipartResolver() {
-//        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-//        multipartResolver.setMaxUploadSizePerFile(10000000);
-//        return multipartResolver;
-//    }
+    @Override
+    // chỉ cho Spring biết chỗ lấy tài liệu tĩnh.(js,css,img)
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("file:/Users/thaojuice/IdeaProjects/MD4-Repository-Student-Management/src/main/webapp/WEB-INF/img/");
+    }
+
+    // Thay đổi kích thước file upload
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSizePerFile(10000000);
+        return multipartResolver;
+    }
 
     //    Cấu hình để kết nối CSDL
     @Bean
@@ -129,5 +133,11 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     }
 
 //   hết Cấu hình để kết nối CSDL
+    @Bean
+    public MessageSource messageSource(){
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("ValidationMessage");
+        return messageSource;
+    }
 
 }

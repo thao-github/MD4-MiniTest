@@ -1,6 +1,7 @@
 package codegym.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Employee {
@@ -8,9 +9,19 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotBlank(message = "{error.blank}")
     private String employeeCode;
+
+    @NotBlank(message = "{error.blank}")
     private String name;
+
+    @NotNull(message = "{error.blank}")
+    @Min(value = 18,message = "{error.age}")
+    @Max(value = 60,message = "{error.age}")
     private int age;
+
+    @NotNull(message = "{error.blank}")
     private double salary;
 
     @ManyToOne
@@ -76,3 +87,4 @@ public class Employee {
         this.branch = branch;
     }
 }
+

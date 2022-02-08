@@ -9,19 +9,25 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<fieldset>
-    <div class="container">
-        <h3>Employee Management</h3>
-        <a th:href="@{/create}" type="button" class="btn btn-success">Add New Employee</a>
+
+<div class="container">
+    <h3>Employee Management</h3>
+
+    <form th:action="@{/search}" method="get">
+        <input type="text" name="search" id="search">
+        <button type="submit">Search</button>
+    </form>
+
+    <a th:href="@{/create}" type="button" class="btn btn-success">Add New Employee</a>
     <table class="table table-bordered">
         <tr>
-        <th>#</th>
-        <th>EmployeeCode</th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Salary</th>
-        <th>Branch</th>
-        <th></th>
+            <th>#</th>
+            <th><a href="/employees?option=employeeCode">EmployeeCode</a></th>
+            <th><a href="/employees?option=name">Name</a></th>
+            <th><a href="/employees?option=age">Age</a></th>
+            <th><a href="/employees?option=salary">Salary</a></th>
+            <th><a href="/employees?option=branch">Branch</a></th>
+            <th></th>
         </tr>
 
         <tr th:each="e, loop:${employees}">
@@ -35,9 +41,13 @@
                 <a th:href="@{/{id}/edit(id=${e.id})}" type="button" class="btn btn-primary">Update</a>
                 <a th:href="@{/{id}/delete(id=${e.id})}" type="button" class="btn btn-danger">Delete</a>
             </td>
+
         </tr>
     </table>
-    </div>
-</fieldset>
+
+    <button th:if="${employees.hasPrevious()}"><a th:href="@{/employees(page=${employees.number}-1,option = ${option})}"><<<<<<</a></button>
+    <b th:text="${employees.number} + 1"></b> / <b th:text="${employees.totalPages}"></b>
+    <button th:if="${employees.hasNext()}"><a th:href="@{/employees(page=${employees.number}+1,option = ${option})}">>>>>>></a></button>
+</div>
 </body>
 </html>
